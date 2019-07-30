@@ -1,0 +1,8 @@
+#ignore node modules
+node_modules/
+
+#webpack build folder should be rebundled
+build
+
+#ignore these weirdos
+.DS_Store
