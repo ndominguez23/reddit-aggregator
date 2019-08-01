@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css?family=Darker+Grotesque|Nanum+Gothic|Rubik&display=swap');
+
+$feedItemFont: 'Darker Grotesque';
+$feedContFont: 'Rubik';
+$feedItemTitleFont: 'Nanum Gothic';
+$buttonColor: #0080ff;
+$secButtonColor: #7fbfff;
+$notReallyBlack: #101010;
+$notReallyWhite: #fafafa;
+$barelyThereBorder: #f1f1f1;
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $notReallyBlack;
+  background: $notReallyWhite;
+}
+
+.main {
+  font-family: 'Rubik', sans-serif;
+}
+
+#welcome {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 50px;
+}
+
+.feed-container {
+  font-family: $feedContFont, sans-serif;
+  font-size: 1em;
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    background: white;
+    width: 50%;
+    min-width: 200px;
+    height: 3em;
+    border-radius: 3px;
+    border: 1px solid $barelyThereBorder;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  [type="button"] {
+    height: 2.5em;
+    width: 10%;
+    min-width: 100px;
+  }
+}
+
+.feed {
+  width: 75%;
+  min-width: 300px;
+}
+
+.feed-item {
+  font-family: $feedItemFont, sans-serif;
+  font-size: 0.75em;
+  border: 1px solid red;
+  margin: 10px;
+  border: 1px solid $barelyThereBorder;
+  .feed-item-title {
+    font-family: $feedItemTitleFont;
+  }
+}
+
+
+#login-signup {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  // border: 1px solid blue;
+  form {
+    margin: 5px;
+  }
+  input {
+    background: white;
+    height: 2.5em;
+    width: 200px;
+    border-radius: 3px;
+    border: 1px solid $barelyThereBorder;
+    padding: 5px;
+  }
+  [type=submit] {
+    width: 100px;
+    background: $buttonColor;
+    border: 1px solid $buttonColor;
+    color: #fff;
+    &:hover {
+      background: #fff;
+      color: $buttonColor;
+      border: 1px solid $secButtonColor;
+    }
+  }
+}
+
+#add-sub {
+  background: $buttonColor;
+  border: 1px solid $buttonColor;
+  color: #fff;
+
+  &:hover {
+    background: white;
+    border: 1px solid $secButtonColor;
+    color: $buttonColor;
+  }
+}
+
+#update-feed {
+  background: white;
+  border: 1px solid $secButtonColor;
+  color: $buttonColor;
+
+  &:hover {
+    background: $buttonColor;
+    border: 1px solid $buttonColor;
+    color: #fff;
+  }
+}
+
+.feeds-display {
+  display: flex;
+  justify-content: center;
+}
