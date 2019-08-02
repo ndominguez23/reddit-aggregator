@@ -3,11 +3,13 @@ import * as actionTypes from '../constants/actionTypes.js';
 const initialState = {
   user: '',
   subList: [],
+  newPassword: '',
   subreddit: '',
 };
 
 const feedReducer = (state = initialState, action) => {
   let user;
+  let newPassword;
   let sub;
   let subList;
   let url;
@@ -15,12 +17,12 @@ const feedReducer = (state = initialState, action) => {
   let feedList;
 
   switch (action.type) {
-    case actionTypes.ADD_USER:
-      ({ user } = action);
+    case actionTypes.LOAD_USERSUBS:
       subList = action.subs;
+      console.log('adding user subs...');
       return {
         ...state,
-        user,
+        newPassword: '',
         subList,
       };
     case actionTypes.ADD_SUB:
@@ -61,8 +63,22 @@ const feedReducer = (state = initialState, action) => {
         ...state,
         subreddit,
       };
+    case actionTypes.SET_USERNAME:
+      ({ user } = action);
+      // console.log(`username is ${user}`);
+      return {
+        ...state,
+        user,
+      };
+    case actionTypes.SET_PASSWORD:
+      ({ newPassword } = action);
+      // console.log(`username is ${newPassword}`);
+      return {
+        ...state,
+        newPassword,
+      };
     default:
-      // console.log('default case');
+      console.log('default case');
       return state;
   }
 };

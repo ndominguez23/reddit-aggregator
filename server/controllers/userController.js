@@ -2,38 +2,55 @@ const User = require('../data/db');
 
 const userController = {};
 
-// userController.createUser = (req, res, next) => {};
+userController.updateUserSubs = (req, res, next) => {
+  if (req.body.username && req.body.subName) {
+    const url = `https://www.reddit.com/${req.body.subName}/`;
+    let newSubList = req.body.subList.map(sub => ({ name: sub.name, url: sub.url }));
+    newSubList = [...newSubList, { name: req.body.subName, url }];
+    console.log(`new sublist ${JSON.stringify(newSubList)}`);
+    User.findOneAndUpdate({ username: req.body.username }, { subreddits: newSubList }, (err, user) => {
+      if (user !== null) {
+        res.locals.subreddits = newSubList;
+        console.log(res.locals.subreddits);
+      } else res.locals.errCode = 404; // user not found
+    });
+  }
+  return next();
+};
+
 userController.createUser = (req, res, next) => {
-  console.log(JSON.stringify(req.body));
-  console.log('creating user');
+  console.log('creating user...');
+  if (!(req.body.username && req.body.password)) {
+    res.locals.errCode = 403; // this indicates a missing login credential
+    return next();
+  }
   const { username } = req.body;
   const { password } = req.body;
-  console.log(`username is ${username}`);
   User.create({
     username,
     password,
-    subreddits: [{ name: undefined, url: undefined }],
   }, (err, user) => {
-    if (err) return next(err);
+    if (err) {
+      res.locals.errCode = err.code; // duplicates will return an error code of 11000
+    } else res.locals.user = user;
 
-    res.locals.subreddit = user.subreddit[0];
-    console.log('user successfully created');
     return next();
   });
 };
 
 userController.loginUser = (req, res, next) => {
+  console.log('logging in...');
+  if (!(req.body.username && req.body.password)) {
+    res.locals.errCode = 403; // this indicates a missing login credential
+    return next();
+  }
   const { username } = req.body;
   const { password } = req.body;
   User.findOne({ username, password }, (err, user) => {
-    if (user.username) {
-      console.log(user);
-      if (user.subreddits.length > 0) {
-        res.locals.name = user.username;
-      }
-      // only get the first subreddit; contains name and url
-      console.log('user has logged in');
-    }
+    if (user === null) {
+      console.log('couldn\'t log in');
+      res.locals.errCode = 404; // we'll use this to be the error code for user not found
+    } else res.locals.subreddits = user.subreddits;
     return next();
   });
 };

@@ -16,13 +16,16 @@ mongoose.connect('mongodb://127.0.0.1/reddit_aggregator',
       console.log('Connection Error');
   });
 
+// const subRedditSchema = new Schema({
+//   name: String,
+//   url: String,
+  
+// });
+
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  subreddits: [{
-    name: String,
-    url: String,
-  }],
+  subreddits: [],
 });
 
 const User = mongoose.model('User', userSchema);
