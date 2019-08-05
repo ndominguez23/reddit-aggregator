@@ -18,6 +18,7 @@ const addSubToUser = (user, subName, subList) => dispatch => fetch('/api/addSub'
   .then(subreddits => dispatch(actions.addUserSubs(subreddits)));
 
 const FeedContainer = () => {
+  // get data from the store and set up the dispatch
   const user = useSelector(store => store.feed.user);
   console.log(`user is ${user}`);
   const subreddit = useSelector(store => store.feed.subreddit);
