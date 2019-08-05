@@ -6,7 +6,7 @@ import Feed from '../components/Feed.jsx';
 import * as actions from '../actions/actions.js';
 
 const mapStateToProps = store => ({
-  // subList: store.feed.subList,
+  subList: store.feed.subList,
   subreddit: store.feed.subreddit,
 });
 
