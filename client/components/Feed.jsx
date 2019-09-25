@@ -15,7 +15,7 @@ const Feed = ({ updateFeedItems, subName, subUrl, feedItems, id }) => {
   return (
     <div className="feed">
       <h3>{subName}</h3>
-      <p>{subUrl}</p>
+      {/* <p>{subUrl}</p> */}
       <input id="update-feed" type="button" value="Get Feed" onClick={() => updateFeedItems(id, subUrl)} />
       <div className="feed-items-container">
         {feedItemArr}
