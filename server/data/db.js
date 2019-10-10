@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+require('dotenv').config()
 // Use the global promise objects to avoid deprecation warnings
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://127.0.0.1/reddit_aggregator',
+mongoose.connect(process.env.DB_URI,
   {
+    dbName: process.env.DB_NAME,
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
@@ -13,7 +15,7 @@ mongoose.connect('mongodb://127.0.0.1/reddit_aggregator',
       console.log('Connected');
     },
     (err) => {
-      console.log('Connection Error');
+      console.log('Connection Error: ', err);
   });
 
 // const subRedditSchema = new Schema({
