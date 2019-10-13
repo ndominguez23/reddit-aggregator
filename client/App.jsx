@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FeedContainer from './containers/FeedContainer.jsx';
 import styles from './scss/main.scss';
 import * as actions from './actions/actions.js';
+import SignUp from './components/Signup.jsx';
 // import store from './store';
 
 
@@ -26,57 +27,37 @@ const signUp = (user, pass) => dispatch => fetch('/api/signup', {
   body: JSON.stringify({ username: user, password: pass }),
 });
 
+const setPassword = actions.setPassword;
+const setUsername = actions.setUsername;
+
 const App = () => {
+  const isLoggedIn = useState(false);
   const username = useSelector(store => store.feed.user);
   const password = useSelector(store => store.feed.newPassword);
+  // TODO: add isLoggedIn state from useState hook to conditionally render
+  // login/singup or logout
 
   const dispatch = useDispatch();
 
   return (
     <div className="main">
       <div id="login-signup">
-        <div id="signup-form">
-          <input
-            type="text"
-            value={username}
-            onChange={e => dispatch(actions.setUsername(e.target.value))}
-            placeholder="Username"
-            required
-          />
-          <input
-            type="text"
-            value={password}
-            onChange={e => dispatch(actions.setPassword(e.target.value))}
-            placeholder="Password"
-            required
-          />
-          <input
-            type="submit"
-            value="Create User"
-            onClick={() => dispatch(signUp(username, password))}
-          />
-        </div>
-        <div id="login-form">
-          <input
-            type="text"
-            value={username}
-            onChange={e => dispatch(actions.setUsername(e.target.value))}
-            placeholder="Username"
-            required
-          />
-          <input
-            type="text"
-            value={password}
-            onChange={e => dispatch(actions.setPassword(e.target.value))}
-            placeholder="Password"
-            required
-          />
-          <input
-            type="submit"
-            value="Log In"
-            onClick={() => dispatch(logInAndAddFeedNames(username, password))}
-          />
-        </div>
+        {/* TODO: USE ROUTING OR CONDITIONAL RENDERING TO DISPLAY ONLY ONE */}
+        {/* TODO: MAKE LOGIN AND SIGNUP SEPARATE COMPONENTS */}
+        <SignUp 
+          username={username}
+          password={password}
+          setPassword={setPassword}
+          setUsername={setUsername}
+          signUp={signUp}
+        />
+        <LogIn 
+          username={username}
+          password={password}
+          setPassword={setPassword}
+          setUsername={setUsername}
+          logIn={logInAndAddFeedNames}
+        />
       </div>
       <h1 id="welcome">Welcome to Reddit Aggregator</h1>
       <FeedContainer />
